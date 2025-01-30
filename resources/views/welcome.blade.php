@@ -8,15 +8,10 @@
                 <div class="card-header">{{ __('Login') }}</div>
 
                 <div class="card-body">
-                    @if(session('error'))
-                        <div class="alert alert-danger">
-                            {{ session('error') }}
-                        </div>
-                    @endif
-
                     <form method="POST" action="{{ route('login') }}">
                         @csrf
 
+                        <!-- Email Input -->
                         <div class="form-group row">
                             <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('Email Address') }}</label>
 
@@ -31,6 +26,7 @@
                             </div>
                         </div>
 
+                        <!-- Password Input -->
                         <div class="form-group row">
                             <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
 
@@ -45,6 +41,7 @@
                             </div>
                         </div>
 
+                        <!-- Remember Me Checkbox -->
                         <div class="form-group row">
                             <div class="col-md-6 offset-md-4">
                                 <div class="form-check">
@@ -57,6 +54,7 @@
                             </div>
                         </div>
 
+                        <!-- Submit Button -->
                         <div class="form-group row mb-0">
                             <div class="col-md-8 offset-md-4">
                                 <button type="submit" class="btn btn-primary">

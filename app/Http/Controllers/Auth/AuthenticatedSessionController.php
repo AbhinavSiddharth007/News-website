@@ -13,35 +13,44 @@ class AuthenticatedSessionController extends Controller
 {
     /**
      * Display the login view.
+     *
+     * @return View
      */
     public function create(): View
     {
-        return view('auth.login');
+        return view('welcome'); // Make sure welcome.blade.php has the login form
     }
 
     /**
      * Handle an incoming authentication request.
+     *
+     * @param LoginRequest $request
+     * @return RedirectResponse
      */
     public function store(LoginRequest $request): RedirectResponse
     {
-        $request->authenticate();
+        $request->authenticate(); // Authenticates the user
 
-        $request->session()->regenerate();
+        $request->session()->regenerate(); // Regenerate the session to prevent session fixation
 
-        return redirect()->intended(route('dashboard', absolute: false));
+        // Redirect to the news page after login
+        return redirect()->route('news.index'); // Instead of redirecting to dashboard
     }
 
     /**
      * Destroy an authenticated session.
+     *
+     * @param Request $request
+     * @return RedirectResponse
      */
     public function destroy(Request $request): RedirectResponse
     {
-        Auth::guard('web')->logout();
+        Auth::guard('web')->logout(); // Log the user out
 
-        $request->session()->invalidate();
+        $request->session()->invalidate(); // Invalidate the session
 
-        $request->session()->regenerateToken();
+        $request->session()->regenerateToken(); // Regenerate the CSRF token
 
-        return redirect('/');
+        return redirect('/'); // Redirect to login page after logout (root URL)
     }
 }
